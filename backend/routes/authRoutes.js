@@ -6,7 +6,7 @@ import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-const JWT_SECRET = "booknotes_secret";
+const JWT_SECRET = process.env.JWT_SECRET || "booknotes_secret";
 
 
 //SIGNUP

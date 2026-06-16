@@ -90,18 +90,26 @@ export default function Checkout() {
 
         const orderData = {
             ...formData,
-            items: cartItems,
+            items: cartItems.map((item) => ({
+                title: item.book.title,
+                price: item.book.price,
+                quantity: item.quantity,
+                image: item.book.image,
+            })),
             totalAmount: totalPrice,
         };
 
         await axios.post(
-            "http://localhost:5000/api/orders",
-            orderData
+            `${API_URL}/orders`,
+            orderData,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
         );
 
         setSuccess(true);
-
-        localStorage.removeItem("cart");
 
         } catch (error) {
         console.log(error);

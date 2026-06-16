@@ -4,6 +4,9 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { FiShoppingCart, FiHeart } from "react-icons/fi";
+import { IoStar } from "react-icons/io5";
+
+import { toast } from "react-toastify";
 
 export default function BookDetails() {
 
@@ -16,6 +19,12 @@ export default function BookDetails() {
     const [book, setBook] = useState(null);
 
     const [wishlist, setWishlist] = useState([]);
+
+    const [reviews, setReviews] = useState([]);
+
+    const [rating, setRating] = useState(0);
+
+    const [comment, setComment] = useState("");
 
     const [loading, setLoading] = useState(true);
 
@@ -121,6 +130,55 @@ export default function BookDetails() {
         } 
 
     }; 
+
+    const fetchReviews = async () => {
+        try {
+            const res = await axios.get(`${API_URL}/reviews/${id}`);
+            setReviews(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchReviews();
+    }, [id]);
+
+    const handleSubmitReview = async (e) => {
+        e.preventDefault();
+
+        try {
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+            toast.error("Please login first");
+            return;
+            }
+
+            await axios.post(
+            `${API_URL}/reviews`,
+            {
+                bookId: id,
+                rating,
+                comment,
+            },
+            {
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            }
+            );
+
+            toast.success("Review added successfully");
+
+            setRating(5);
+            setComment("");
+
+            fetchReviews();
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Failed to add review");
+        }
+    };
 
     if (loading) {
         return (
@@ -288,7 +346,100 @@ export default function BookDetails() {
 
       </section>
 
-      <Footer />
+      <section className="mt-16 px-5 sm:px-8 md:px-12 lg:px-[100px] 
+            py-15 
+            bg-[#FAF7F3] 
+            min-h-screen">
+        <h2 className="text-2xl font-bold text-[#1C2024] mb-6">
+            Customer Reviews
+        </h2>
+
+        <form
+            onSubmit={handleSubmitReview}
+            className="bg-white p-5 rounded-2xl mb-8 space-y-4"
+        >
+            <div>
+                <label className="block mb-2 text-[#1C2024] font-medium">
+                    Rating
+                </label>
+
+                <div className="flex gap-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                    <IoStar
+                        key={star}
+                        onClick={() => setRating(star)}
+                        className={`
+                        text-3xl
+                        cursor-pointer
+                        transition
+                        ${
+                            star <= rating
+                            ? "text-yellow-400"
+                            : "text-gray-300"
+                        }
+                        `}
+                    />
+                    ))}
+                </div>
+            </div>
+
+            <div>
+            <label className="block mb-2 text-[#1C2024] font-medium">
+                Your Review
+            </label>
+
+            <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Write your review..."
+                className="w-full p-3 rounded-xl border outline-none min-h-[120px]"
+                required
+            />
+            </div>
+
+            <button
+            type="submit"
+            className="bg-[#1E1B4B] text-white px-6 py-3 rounded-full hover:bg-[#322e67] transition"
+            >
+            Submit Review
+            </button>
+        </form>
+
+        {reviews.length === 0 ? (
+            <p className="text-[#666]">
+            No reviews yet. Be the first to review this book.
+            </p>
+        ) : (
+            <div className="space-y-4">
+            {reviews.map((review) => (
+                <div
+                key={review._id}
+                className="bg-white shadow-md rounded-2xl p-5"
+                >
+                <div className="flex justify-between items-center gap-4">
+                    <h3 className="font-semibold text-[#1C2024]">
+                    {review.userName}
+                    </h3>
+
+                    <span className="text-[#F59E0B] font-bold">
+                    {review.rating} ★
+                    </span>
+                </div>
+
+                <p className="text-[#666] mt-3">
+                    {review.comment}
+                </p>
+
+                <p className="text-xs text-[#999] mt-3">
+                    {new Date(review.createdAt).toLocaleDateString("en-IN")}
+                </p>
+                </div>
+            ))}
+            </div>
+        )}
+        </section>
+
+        <Footer />
     </>
   );
 }

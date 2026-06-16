@@ -159,6 +159,7 @@ export default function Navbar(){
                     <Link to="/wishlist">
                         <FiHeart className="hover:text-[#6f6aa2] cursor-pointer hover:scale-110 transition" />
                     </Link>
+
                     
                     {/* CART ICON */}
 
@@ -227,6 +228,11 @@ export default function Navbar(){
                                             <p className="text-sm text-[#6D6D6D]">
                                                 Hello, {user.name}
                                             </p>
+
+                                            {/*ORDERS ICON*/}
+                                            <Link to="/my-orders" className="text-left transition text-sm sm:text-base">
+                                                Your Orders
+                                            </Link>
 
                                             <button
                                                 onClick={handleLogout}

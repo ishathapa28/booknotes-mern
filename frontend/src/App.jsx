@@ -7,6 +7,7 @@ import Cart from "./pages/Cart";
 import SearchResults from "./pages/SearchResults";
 import BookDetails from "./pages/BookDetails";
 import Checkout from "./pages/Checkout";
+import Orders from './pages/MyOrders';
 
 import Home from './pages/Home';
 import Login from "./pages/Login";
@@ -32,20 +33,18 @@ function App() {
         <Route path="/search/:query" element={<SearchResults />}/>
         <Route path="/book/:id" element={<BookDetails />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/my-orders" element={<Orders />} />
 
         <Route path="/admin/login" element={<AdminLogin />} />
 
         <Route path="/admin" element={<AdminDashboard />}>
+          <Route path="dashboard" element={<h1>Dashboard</h1>} />
+          <Route path="add-book" element={<AddBook />} />
+          <Route path="books" element={<AdminBooks />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
 
-        <Route path="/admin/dashboard" element={<h1>Dashboard</h1>} />
-
-        <Route path="/admin/add-book" element={<AddBook />} />
-
-        <Route path="/admin/books" element={<AdminBooks />} />
-
-        <Route path="/admin/users" element={<AdminUsers />} />
-
-      </Route>
+    
       </Routes>
     </BrowserRouter>
   )

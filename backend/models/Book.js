@@ -31,6 +31,10 @@ const bookSchema = new mongoose.Schema({
     type: Number,
     default: 0
   },
+  reviewCount: {
+    type: Number,
+    default: 0
+  },
   bestseller: {
   type: Boolean,
   default: false
