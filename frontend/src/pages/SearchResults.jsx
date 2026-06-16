@@ -88,7 +88,7 @@ export default function SearchResults() {
                 `${API_URL}/cart`,
                 {
                     bookId: book._id,
-                }
+                },
                 {
                     headers: {
                     Authorization: `Bearer ${token}`,
