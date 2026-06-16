@@ -27,7 +27,7 @@ export default function AdminBooks() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/books/${id}`
+        `${API_URL}/books/${id}`
       );
 
       setBooks((prev) =>
@@ -72,7 +72,7 @@ export default function AdminBooks() {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/books/${editingBook._id}`,
+        `${API_URL}/books/${editingBook._id}`,
         formData
       );
 

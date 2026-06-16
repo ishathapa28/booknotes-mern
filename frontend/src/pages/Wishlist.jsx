@@ -43,7 +43,7 @@ export default function Wishlist() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/wishlist/${item._id}`, {
+        `${API_URL}/wishlist/${item._id}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`
           }
@@ -61,7 +61,7 @@ export default function Wishlist() {
 
   const handleAddToCart = async (book) => {
     try {
-      await axios.post("http://localhost:5000/api/cart", 
+      await axios.post(`${API_URL}/cart`, 
         {
           bookId: book._id,
         },
@@ -111,7 +111,7 @@ export default function Wishlist() {
                 key={i}
                 book={item.book}
                 isWishlisted={true}
-                onToggleWishlist= {() => handleRemove(item._id)}
+                onToggleWishlist= {() => handleRemove(item)}
                 onAddToCart={handleAddToCart}
                 bgColor={ 
                     pastelColors[i % pastelColors.length] 

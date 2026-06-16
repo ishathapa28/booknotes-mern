@@ -170,7 +170,7 @@ export default function Home() {
       // REMOVE
 
       if (exists) { 
-        await axios.delete( `http://localhost:5000/api/wishlist/${exists._id}`, 
+        await axios.delete( `${API_URL}/wishlist/${exists._id}`, 
           { headers: 
             { 
               Authorization: `Bearer ${token}` 
@@ -183,7 +183,7 @@ export default function Home() {
       // ADD 
 
       else { 
-        const res = await axios.post( "http://localhost:5000/api/wishlist", 
+        const res = await axios.post( `${API_URL}/wishlist`, 
           { bookId: book._id }, 
           { headers: 
             { 
@@ -223,7 +223,7 @@ export default function Home() {
 
     const handleAddToCart = async (book) => { 
       try { 
-        await axios.post( "http://localhost:5000/api/cart", 
+        await axios.post( `${API_URL}/cart`, 
           { bookId: book._id, }, 
           { headers: 
             { 

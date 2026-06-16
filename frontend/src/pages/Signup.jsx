@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 
 export default function Signup() {
 
+  const API_URL = import.meta.env.VITE_API_URL;
+  
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -26,7 +28,7 @@ export default function Signup() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/signup",
+        `${API_URL}/auth/signup`,
         form
       );
 

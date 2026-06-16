@@ -74,7 +74,7 @@ export default function Cart() {
         toast.info("Book is already in wishlist");
       }
       else {
-        const res = await axios.post("http://localhost:5000/api/wishlist",
+        const res = await axios.post(`${API_URL}/wishlist`,
           {
           bookId: book._id,
           },
@@ -104,7 +104,7 @@ export default function Cart() {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/cart/${id}`, {
+        `${API_URL}/cart/${id}`, {
           headers: 
           {
             Authorization: `Bearer ${token}`

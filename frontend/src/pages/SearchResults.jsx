@@ -21,6 +21,8 @@ export default function SearchResults() {
 
     const API_URL = import.meta.env.VITE_API_URL;
 
+    const token = localStorage.getItem("token");
+
     const { query } = useParams();
 
     const [books, setBooks] = useState([]);
@@ -83,9 +85,14 @@ export default function SearchResults() {
         try {
 
             await axios.post(
-                "http://localhost:5000/api/cart",
+                `${API_URL}/cart`,
                 {
                     bookId: book._id,
+                }
+                {
+                    headers: {
+                    Authorization: `Bearer ${token}`,
+                    },
                 }
             );
 
