@@ -132,7 +132,7 @@ export default function Checkout() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
                     {/* LEFT SIDE */}
-                    <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm border p-8">
+                    <div className="lg:col-span-2 bg-white rounded-3xl shadow-sm border p-8 max-h-max">
 
                         <h2 className="text-2xl font-semibold mb-6 text-[#1C2024]">
                             Shipping Information

@@ -19,11 +19,18 @@ const app = express();
 
 // middleware
 app.use(cors({
-  origin: "http://localhost:5173",
+  //origin: "http://localhost:5173",
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 
 app.use(express.json());
+app.use(cookieParser());
+
+// test route
+app.get("/", (req, res) => {
+  res.send("Backend is running");
+});
 
 // routes
 app.use("/api/auth", authRoutes);
@@ -35,7 +42,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
 
-app.use(cookieParser());
 
 // connect MongoDB
 mongoose.connect(process.env.MONGO_URI)
