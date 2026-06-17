@@ -464,7 +464,7 @@ export default function Home() {
             {visibleCount < newArrivals.length && ( 
               <button 
                 onClick={handleShowMore} 
-                className="px-5 sm:px-6 py-2 rounded-full bg-[#6366F1] text-white text-sm sm:text-base shadow hover:bg-[#4f46e5] transition" 
+                className="px-5 sm:px-6 py-2 rounded-full bg-[#8e70d3] text-white text-sm sm:text-base shadow hover:bg-[#8459cd] transition" 
               > 
                 Show More 
               </button> 
@@ -474,7 +474,7 @@ export default function Home() {
             {expanded && ( 
               <button 
                 onClick={handleShowLess} 
-                className="px-5 sm:px-6 py-2 rounded-full bg-[#6366F1] text-white text-sm sm:text-base shadow hover:bg-[#4f46e5] transition" 
+                className="px-5 sm:px-6 py-2 rounded-full bg-[#8e70d3] text-white text-sm sm:text-base shadow hover:bg-[#8459cd] transition" 
               > 
                 Show Less 
               </button> 
